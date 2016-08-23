@@ -24,5 +24,8 @@ setup(
         'Natural Language :: English',
         'Operating System :: OS Independent',
         'Topic :: Software Development :: Libraries :: Python Modules'
-    ]
+    ],
+    entry_points={
+        'console_scripts': ['aws_spot_price_history = spot_reporter.cli:cli']
+    }
 )

@@ -29,7 +29,8 @@ Options:
 ```
 
 ## Example
-Run a command like `ipython -- spot_reporter/cli.py --action slack r3.8xlarge c3.8xlarge` to fetch
+Run a command like `ipython -- spot_reporter/cli.py --action slack r3.8xlarge c3.8xlarge` or
+`aws_spot_price_history --action slack r3.8xlarge c3.8xlarge` to fetch
 the reports for those instance types and upload the results to slack.
 
 ![](examples/aws_spot_price_daily.png)
