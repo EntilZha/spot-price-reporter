@@ -13,7 +13,7 @@ setup(
     keywords='aws spot price plot slack email',
     packages=find_packages(exclude=['contrib', 'docs', 'tests*', 'test']),
     version='0.0.0',
-    install_requires=['pandas', 'seaborn', 'click', 'awscli', 'slacker', 'matplotlib'],
+    install_requires=['pandas', 'seaborn', 'click', 'slacker', 'matplotlib'],
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
