@@ -38,11 +38,18 @@ def get_spot_price_data(instance_types, start_time=None, end_time=None, region=N
     if end_time is not None:
         options.extend(['--end-time', end_time.strftime('%Y-%m-%dT%H:%M:%S')])
 
-    output = subprocess.run(
-        command + options,
-        check=True,
-        stdout=subprocess.PIPE
-    )
+    try:
+        output = subprocess.run(
+            command + options,
+            check=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE
+        )
+    except Exception as e:
+        print(e.stdout)
+        print(e.stderr)
+        raise
+
     j = json.loads(output.stdout.decode('utf-8'))
     data = j['SpotPriceHistory']
     for r in data:
