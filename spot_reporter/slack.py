@@ -5,8 +5,10 @@ SLACK_API_TOKEN = os.environ.get('SLACK_API_TOKEN')
 SLACK_CHANNEL = os.getenv('SLACK_CHANNEL', '#aws')
 
 
-def notify(daily_file, weekly_file, stop_time):
-    slack = Slacker(SLACK_API_TOKEN)
+def notify(daily_file, weekly_file, stop_time, slack_api_token=None):
+    if slack_api_token is None:
+        slack_api_token = SLACK_API_TOKEN
+    slack = Slacker(slack_api_token)
     slack.files.upload(
         daily_file, channels=[SLACK_CHANNEL],
         title='Daily AWS Spot Price ending on {}'.format(stop_time)
