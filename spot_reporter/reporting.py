@@ -1,10 +1,11 @@
 import subprocess
 from datetime import datetime
-from datetime import timedelta
 import json
+import matplotlib
+matplotlib.use('Agg')
 import pandas as pd
 import seaborn as sns
-import matplotlib
+import matplotlib.pyplot as plt
 
 
 def get_spot_price_data(instance_types, start_time=None, end_time=None, region=None):
@@ -54,8 +55,6 @@ def get_spot_price_data(instance_types, start_time=None, end_time=None, region=N
 
 
 def create_plot(json_data, output):
-    matplotlib.use('Agg')
-    import matplotlib.pyplot as plt
     all_data = pd.DataFrame(json_data)
     df = all_data[all_data['ProductDescription'] == 'Linux/UNIX']
     df = df.drop_duplicates(subset=['DateTime', 'AvailabilityZone', 'InstanceType'])
