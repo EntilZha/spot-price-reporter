@@ -19,7 +19,7 @@ def notify(daily_file, weekly_file, stop_time, slack_api_token=None, use_channel
     )
     if use_channel_time:
         slack.chat.post_message(
-            '#aws', '/time AWS Spot prices ending on {} are available'.format(stop_time),
+            '#aws', '/time AWS Spot prices ending on {} UTC are available'.format(stop_time),
             username='AWS Bot')
     else:
         slack.chat.post_message(
