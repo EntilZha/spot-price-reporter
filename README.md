@@ -38,7 +38,7 @@ the reports for those instance types and upload the results to slack.
 
 ## Airflow Example
 
-Below is an example of an Airflow DAG to run this every hour
+Below is an example of an [Apache Airflow](http://airflow.incubator.apache.org) DAG to run this every hour
 
 ```python
 from airflow import DAG
@@ -58,8 +58,13 @@ dag = DAG('aws_spot_price_history', default_args=default_args, schedule_interval
 
 run_all = BashOperator(
     task_id='run_all',
-    bash_command='aws_spot_price_history --end-time {{ ts }} --action slack --output-dir /tmp/spot-reporter/{{ ts }} r3.8xlarge',
+    bash_command='aws_spot_price_history --end-time {{ (execution_date + macros.timedelta(hours=1)).isoformat() }} --action slack --output-dir /tmp/spot-reporter/{{ (execution_date + macros.timedelta(hours=1)).isoformat() }} r3.8xlarge',
     dag=dag
 )
 ```
+
+Note that an hour is added to the timestamp due to how Airflow works. If a DAG is scheduled for 3PM
+this means that it will wait util 3PM + 1 hour (the schedule interval) to run. This is because
+airflow sees this as waiting until all the data for 3PM-4PM is in. Since we give an end date for AWS
+instead of a start date, we need to manually shift the time by one hour to get the most recent data
 
