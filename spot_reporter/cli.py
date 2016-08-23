@@ -17,7 +17,7 @@ from spot_reporter import reporting, slack
 @click.option('--skip-generation', is_flag=True, help='Skip file generation')
 @click.option('--slack-api-token', default=None,
               help='Slack API token, defaults to environment variable SLACK_API_TOKEN')
-@click.option('--use-channel-time', default=False,
+@click.option('--use-channel-time', is_flag=True,
               help='Preface slack chat with /time for https://channeltime.info')
 @click.argument('instance_types', nargs=-1, required=True)
 def cli(action, output_dir, end_time, region, skip_generation, slack_api_token, instance_types,
