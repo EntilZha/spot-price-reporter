@@ -46,8 +46,8 @@ def get_spot_price_data(instance_types, start_time=None, end_time=None, region=N
             stderr=subprocess.PIPE
         )
     except Exception as e:
-        print(e.stdout)
-        print(e.stderr)
+        print(e.stdout.decode('utf-8'))
+        print(e.stderr.decode('utf-8'))
         raise
 
     j = json.loads(output.stdout.decode('utf-8'))
