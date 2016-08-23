@@ -17,8 +17,11 @@ from spot_reporter import reporting, slack
 @click.option('--skip-generation', is_flag=True, help='Skip file generation')
 @click.option('--slack-api-token', default=None,
               help='Slack API token, defaults to environment variable SLACK_API_TOKEN')
+@click.option('--use-channel-time', default=False,
+              help='Preface slack chat with /time for https://channeltime.info')
 @click.argument('instance_types', nargs=-1, required=True)
-def cli(action, output_dir, end_time, region, skip_generation, slack_api_token, instance_types):
+def cli(action, output_dir, end_time, region, skip_generation, slack_api_token, instance_types,
+        use_channel_time):
     print('Running spot price reporter')
     daily_path = path.join(output_dir, 'aws_spot_price_daily.png')
     weekly_path = path.join(output_dir, 'aws_spot_price_weekly.png')
@@ -50,7 +53,8 @@ def cli(action, output_dir, end_time, region, skip_generation, slack_api_token, 
 
     if 'slack' in action:
         print('Uploading and messaging slack')
-        slack.notify(daily_path, weekly_path, stop_datetime, slack_api_token=slack_api_token)
+        slack.notify(daily_path, weekly_path, stop_datetime, slack_api_token=slack_api_token,
+                     use_channel_time=use_channel_time)
 
 
 if __name__ == '__main__':
